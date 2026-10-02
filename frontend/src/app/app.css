@@ -1,0 +1,110 @@
+.contenedor {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 32px 24px 64px;
+}
+
+header h1 {
+  margin-bottom: 4px;
+  color: #1a3d7c;
+}
+
+.subtitulo {
+  margin-top: 0;
+  color: #6b7280;
+}
+
+.carga {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 20px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 20px 0;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.campo label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+}
+
+button {
+  background-color: #1a3d7c;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 20px;
+  font-size: 15px;
+  cursor: pointer;
+  height: 38px;
+}
+
+button:disabled {
+  background-color: #9aa8c4;
+  cursor: not-allowed;
+}
+
+.mensaje.error { color: #b91c1c; }
+.mensaje.cargando { color: #374151; }
+
+.resumen {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin: 24px 0;
+}
+
+.tarjeta {
+  flex: 1 1 150px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.tarjeta .numero { font-size: 28px; font-weight: 700; color: #1a3d7c; }
+.tarjeta.correcta .numero { color: #15803d; }
+.tarjeta.inconsistencia .numero { color: #b91c1c; }
+.tarjeta .etiqueta { font-size: 13px; color: #6b7280; text-align: center; }
+
+.filtro {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.conteo { color: #6b7280; font-size: 13px; }
+
+.tabla-scroll {
+  overflow-x: auto;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+}
+
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid #edf1f5; vertical-align: top; }
+th { background-color: #f0f4fa; color: #1f2a37; }
+.fila-inconsistencia { background-color: #fff6f6; }
+
+.badge { display: inline-block; padding: 2px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; }
+.badge-ok { background-color: #dcfce7; color: #15803d; }
+.badge-error { background-color: #fee2e2; color: #b91c1c; }
+
+.causas { margin: 0; padding-left: 16px; }
+.causas li { margin-bottom: 2px; }

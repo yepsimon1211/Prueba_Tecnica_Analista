@@ -1,0 +1,95 @@
+<div class="contenedor">
+  <header>
+    <h1>Conciliador de Facturas y Retenciones</h1>
+    <p class="subtitulo">Gerencia de Evolución Contable y Tributaria</p>
+  </header>
+
+  <section class="carga">
+    <div class="campo">
+      <label for="facturas">Archivo de facturas (.csv)</label>
+      <input id="facturas" type="file" accept=".csv" (change)="onFacturasSeleccionadas($event)" />
+    </div>
+
+    <div class="campo">
+      <label for="contabilidad">Archivo de contabilidad (.csv)</label>
+      <input id="contabilidad" type="file" accept=".csv" (change)="onContabilidadSeleccionada($event)" />
+    </div>
+
+    <button (click)="procesar()" [disabled]="cargando()">
+      {{ cargando() ? 'Procesando...' : 'Procesar' }}
+    </button>
+  </section>
+
+  <p class="mensaje error" *ngIf="error()">{{ error() }}</p>
+  <p class="mensaje cargando" *ngIf="cargando()">Cargando resultados, un momento...</p>
+
+  <section class="resumen" *ngIf="resumen() as r">
+    <div class="tarjeta">
+      <span class="numero">{{ r.total_facturas }}</span>
+      <span class="etiqueta">Total de facturas</span>
+    </div>
+    <div class="tarjeta correcta">
+      <span class="numero">{{ r.facturas_correctas }}</span>
+      <span class="etiqueta">Correctas</span>
+    </div>
+    <div class="tarjeta inconsistencia">
+      <span class="numero">{{ r.facturas_con_inconsistencia }}</span>
+      <span class="etiqueta">Con inconsistencia</span>
+    </div>
+    <div class="tarjeta">
+      <span class="numero">{{ r.facturas_duplicadas }}</span>
+      <span class="etiqueta">Duplicadas</span>
+    </div>
+    <div class="tarjeta">
+      <span class="numero">{{ r.facturas_sin_contabilizar }}</span>
+      <span class="etiqueta">Sin contabilizar</span>
+    </div>
+  </section>
+
+  <section class="detalle" *ngIf="detalle().length">
+    <div class="filtro">
+      <label for="filtroEstado">Filtrar por estado:</label>
+      <select id="filtroEstado" (change)="onFiltroChange($event)">
+        <option value="Todos">Todos</option>
+        <option value="Correcta">Correcta</option>
+        <option value="Con inconsistencia">Con inconsistencia</option>
+      </select>
+      <span class="conteo">{{ detalleFiltrado().length }} de {{ detalle().length }} facturas</span>
+    </div>
+
+    <div class="tabla-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>ID Factura</th>
+            <th>NIT Proveedor</th>
+            <th>Fecha</th>
+            <th>Total Factura</th>
+            <th>Total Esperado</th>
+            <th>Estado</th>
+            <th>Causas</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let f of detalleFiltrado()" [class.fila-inconsistencia]="f.estado === 'Con inconsistencia'">
+            <td>{{ f.id_factura }}</td>
+            <td>{{ f.nit_proveedor || '—' }}</td>
+            <td>{{ f.fecha_factura || '—' }}</td>
+            <td>{{ f.total_factura ?? '—' }}</td>
+            <td>{{ f.total_esperado ?? '—' }}</td>
+            <td>
+              <span class="badge" [class.badge-ok]="f.estado === 'Correcta'" [class.badge-error]="f.estado === 'Con inconsistencia'">
+                {{ f.estado }}
+              </span>
+            </td>
+            <td>
+              <ul class="causas" *ngIf="f.causas.length">
+                <li *ngFor="let c of f.causas">{{ c }}</li>
+              </ul>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>
